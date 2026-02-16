@@ -602,14 +602,19 @@ h3.question-text {
 }
 
 /* Print Styles */
+/* Print Styles */
 @media print {
     @page {
-        margin: 1.5cm;
+        margin: 0.8cm;
     }
 
     body {
         background: white;
         color: black;
+        /* Force block layout to override flex centering */
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
         /* Force font consistency */
         font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
         -webkit-print-color-adjust: exact;
@@ -637,12 +642,16 @@ h3.question-text {
     #print-container {
         display: block !important;
         width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 
     h1 {
-        font-size: 18pt;
+        font-size: 14pt;
+        /* Reduced */
         text-align: center;
-        margin-bottom: 25px;
+        margin-bottom: 15px;
         color: #000;
         font-weight: 700;
         text-transform: uppercase;
@@ -650,18 +659,18 @@ h3.question-text {
     }
 
     h2 {
-        font-size: 14pt;
-        margin-top: 30px;
-        margin-bottom: 15px;
+        font-size: 12pt;
+        margin-top: 15px;
+        margin-bottom: 10px;
         color: #333;
         border-bottom: 2px solid #000;
-        padding-bottom: 5px;
+        padding-bottom: 3px;
         font-weight: 600;
     }
 
     h3 {
-        font-size: 12pt;
-        margin-bottom: 10px;
+        font-size: 10pt;
+        margin-bottom: 8px;
         color: #555;
         text-transform: uppercase;
         font-weight: 600;
@@ -671,60 +680,61 @@ h3.question-text {
     /* 2-Column Layout for Questions */
     #print-questions-list {
         column-count: 2;
-        column-gap: 40px;
-        font-size: 9pt;
+        column-gap: 30px;
+        font-size: 8pt;
+        /* Reduced */
     }
 
     .print-question-item {
-        margin-bottom: 12px;
+        margin-bottom: 6px;
         page-break-inside: avoid;
         break-inside: avoid;
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
         border-bottom: 1px dotted #ccc;
-        padding-bottom: 2px;
+        padding-bottom: 1px;
     }
 
     .print-q-content {
         display: flex;
         gap: 5px;
         flex: 1;
-        padding-right: 10px;
+        padding-right: 5px;
     }
 
     .print-q-num {
         font-weight: 700;
         color: #444;
-        min-width: 20px;
+        min-width: 15px;
     }
 
     .print-q-text {
         font-weight: 400;
         color: #111;
-        line-height: 1.35;
+        line-height: 1.25;
     }
 
     .print-score {
         font-weight: 700;
-        min-width: 25px;
+        min-width: 15px;
         text-align: right;
-        font-size: 10pt;
+        font-size: 9pt;
     }
 
     /* Table Styling */
     table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 15px;
-        font-size: 10pt;
+        margin-top: 10px;
+        font-size: 9pt;
         border: 1px solid #000;
     }
 
     th,
     td {
         border: 1px solid #ccc;
-        padding: 8px 12px;
+        padding: 4px 8px;
         text-align: left;
     }
 
@@ -732,7 +742,7 @@ h3.question-text {
         background-color: #eee !important;
         font-weight: 700;
         text-transform: uppercase;
-        font-size: 9pt;
+        font-size: 8pt;
         color: #000;
     }
 
@@ -741,7 +751,7 @@ h3.question-text {
     }
 
     .print-break {
-        margin-bottom: 30px;
+        margin-bottom: 10px;
     }
 }
 
