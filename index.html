@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LPI Student Self-Assessment</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="app-background"></div>
+
+    <main class="app-container">
+        <!-- Introduction Screen -->
+        <section id="intro-screen" class="screen active">
+            <div class="content-card">
+                <h1>Leadership Practices Inventory</h1>
+                <h2>Student Self-Assessment</h2>
+                <div class="instructions">
+                    <p>Please guide your self-assessment for the following behavior items. Rate each item honestly about
+                        yourself <strong>as you are now</strong> (vs. how you wish you would be) using the scale
+                        provided below:</p>
+                    <ul class="rating-scale">
+                        <li><span class="score-badge">5</span> <span class="rating-text">I display this behavior
+                                <strong>extensively</strong></span>
+                        </li>
+                        <li><span class="score-badge">4</span> <span class="rating-text">I display this behavior
+                                <strong>frequently</strong></span></li>
+                        <li><span class="score-badge">3</span> <span class="rating-text">I display this behavior
+                                <strong>occasionally</strong></span>
+                        </li>
+                        <li><span class="score-badge">2</span> <span class="rating-text">I display this behavior
+                                <strong>rarely</strong></span></li>
+                        <li><span class="score-badge">1</span> <span class="rating-text">I <strong>do not
+                                    display</strong> this behavior</span></li>
+                    </ul>
+                </div>
+                <button id="start-btn" class="btn primary-btn">Start Assessment</button>
+            </div>
+        </section>
+
+        <!-- Question Wizard Screen -->
+        <section id="wizard-screen" class="screen">
+            <div class="card-wrapper">
+                <div class="wizard-header">
+                    <div class="step-indicator">Question <span id="current-step">1</span> of 25</div>
+                    <div class="nav-row">
+                        <button id="prev-btn" class="nav-btn back-btn" disabled>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 12H5" />
+                                <path d="M12 19l-7-7 7-7" />
+                            </svg>
+                            Back
+                        </button>
+                        <div class="progress-container">
+                            <div class="progress-track">
+                                <div class="progress-bar" id="progress-bar"></div>
+                            </div>
+                        </div>
+                        <button id="info-btn" class="nav-btn info-btn" title="Rating Instructions">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zM12 16v-4M12 8h.01" />
+                            </svg>
+                        </button>
+                        <button id="reset-btn" class="nav-btn reset-btn" title="Restart Assessment">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="question-card" id="question-card">
+                    <div id="question-content" class="question-content">
+                        <p class="question-prompt">In my work/school/life, I...</p>
+                        <h3 class="question-text" id="question-text">Loading...</h3>
+                    </div>
+                    <div class="options-grid" id="options-grid">
+                        <button class="option-btn" data-value="1">
+                            <span class="val">1</span>
+                            <span class="label">Never</span>
+                        </button>
+                        <button class="option-btn" data-value="2">
+                            <span class="val">2</span>
+                            <span class="label">Rarely</span>
+                        </button>
+                        <button class="option-btn" data-value="3">
+                            <span class="val">3</span>
+                            <span class="label">Occasionally</span>
+                        </button>
+                        <button class="option-btn" data-value="4">
+                            <span class="val">4</span>
+                            <span class="label">Frequently</span>
+                        </button>
+                        <button class="option-btn" data-value="5">
+                            <span class="val">5</span>
+                            <span class="label">Extensively</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Screen -->
+        <section id="results-screen" class="screen">
+            <div class="content-card results-card">
+                <h2>Summary Profile</h2>
+                <p class="summary-text">Here is your weighted score for each leadership practice.</p>
+
+                <div class="results-grid" id="results-grid">
+                    <!-- Result Items will be injected here -->
+                </div>
+
+                <div class="action-buttons">
+                    <button id="print-btn" class="btn primary-btn">Print Report</button>
+                    <button id="restart-btn" class="btn secondary-btn">Retake Assessment</button>
+                    <button id="home-btn" class="btn secondary-btn home-btn-style">Back to Home</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Info Modal -->
+    <div id="info-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="close-modal-btn" class="close-modal">&times;</button>
+            <h3>Rating Scale Guide</h3>
+            <ul class="rating-scale-modal">
+                <li><span class="score-badge">5</span> <span class="rating-text">I display this behavior
+                        <strong>extensively</strong></span></li>
+                <li><span class="score-badge">4</span> <span class="rating-text">I display this behavior
+                        <strong>frequently</strong></span></li>
+                <li><span class="score-badge">3</span> <span class="rating-text">I display this behavior
+                        <strong>occasionally</strong></span></li>
+                <li><span class="score-badge">2</span> <span class="rating-text">I display this behavior
+                        <strong>rarely</strong></span></li>
+                <li><span class="score-badge">1</span> <span class="rating-text">I <strong>do not display</strong> this
+                        behavior</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Hidden Print Container -->
+    <div id="print-container">
+        <h1>LPI Student Self-Assessment Report</h1>
+        <div id="print-questions-list"></div>
+        <div class="print-break"></div>
+        <h2>Summary Profile</h2>
+        <table id="print-results-table">
+            <thead>
+                <tr>
+                    <th>Practice</th>
+                    <th>Total Score</th>
+                    <th>Weighted Score</th>
+                </tr>
+            </thead>
+            <tbody id="print-results-body"></tbody>
+        </table>
+    </div>
+
+    <script src="app.js?v=2"></script>
+</body>
+
+</html>
