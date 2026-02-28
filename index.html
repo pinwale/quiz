@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LPI Student Self-Assessment</title>
+    <title>Quiz Hub</title>
     <meta name="theme-color" content="#6a11cb">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="stylesheet" href="style.css?v=8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -18,31 +18,28 @@
     <div class="app-background"></div>
 
     <main class="app-container">
-        <!-- Introduction Screen -->
-        <section id="intro-screen" class="screen active">
+
+        <!-- Quiz Selector Screen -->
+        <section id="selector-screen" class="screen active">
             <div class="content-card">
-                <h1>Leadership Practices Inventory</h1>
-                <h2>Student Self-Assessment</h2>
-                <div class="instructions">
-                    <p>Please guide your self-assessment for the following behavior items. Rate each item honestly about
-                        yourself <strong>as you are now</strong> (vs. how you wish you would be) using the scale
-                        provided below:</p>
-                    <ul class="rating-scale">
-                        <li><span class="score-badge">5</span> <span class="rating-text">I display this behavior
-                                <strong>extensively</strong></span>
-                        </li>
-                        <li><span class="score-badge">4</span> <span class="rating-text">I display this behavior
-                                <strong>frequently</strong></span></li>
-                        <li><span class="score-badge">3</span> <span class="rating-text">I display this behavior
-                                <strong>occasionally</strong></span>
-                        </li>
-                        <li><span class="score-badge">2</span> <span class="rating-text">I display this behavior
-                                <strong>rarely</strong></span></li>
-                        <li><span class="score-badge">1</span> <span class="rating-text">I <strong>do not
-                                    display</strong> this behavior</span></li>
-                    </ul>
+                <h1>Quiz Hub</h1>
+                <p class="selector-subtitle">Choose an assessment to begin</p>
+                <div class="quiz-selector-grid" id="quiz-selector-grid">
+                    <!-- Injected by JS -->
                 </div>
-                <button id="start-btn" class="btn primary-btn">Start Assessment</button>
+            </div>
+        </section>
+
+        <!-- Introduction Screen (dynamic per quiz) -->
+        <section id="intro-screen" class="screen">
+            <div class="content-card">
+                <h1 id="intro-title"></h1>
+                <h2 id="intro-subtitle"></h2>
+                <div class="instructions" id="intro-instructions"></div>
+                <div class="intro-actions">
+                    <button id="start-btn" class="btn primary-btn">Start Assessment</button>
+                    <button id="back-to-selector-btn" class="btn secondary-btn">Back</button>
+                </div>
             </div>
         </section>
 
@@ -50,7 +47,7 @@
         <section id="wizard-screen" class="screen">
             <div class="card-wrapper">
                 <div class="wizard-header">
-                    <div class="step-indicator">Question <span id="current-step">1</span> of 25</div>
+                    <div class="step-indicator">Question <span id="current-step">1</span> of <span id="total-steps">25</span></div>
                     <div class="nav-row">
                         <button id="prev-btn" class="nav-btn back-btn" disabled>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -84,30 +81,11 @@
 
                 <div class="question-card" id="question-card">
                     <div id="question-content" class="question-content">
-                        <p class="question-prompt">In my work/school/life, I...</p>
+                        <p class="question-prompt" id="question-prompt"></p>
                         <h3 class="question-text" id="question-text">Loading...</h3>
                     </div>
                     <div class="options-grid" id="options-grid">
-                        <button class="option-btn" data-value="1">
-                            <span class="val">1</span>
-                            <span class="label">Never</span>
-                        </button>
-                        <button class="option-btn" data-value="2">
-                            <span class="val">2</span>
-                            <span class="label">Rarely</span>
-                        </button>
-                        <button class="option-btn" data-value="3">
-                            <span class="val">3</span>
-                            <span class="label">Occasionally</span>
-                        </button>
-                        <button class="option-btn" data-value="4">
-                            <span class="val">4</span>
-                            <span class="label">Frequently</span>
-                        </button>
-                        <button class="option-btn" data-value="5">
-                            <span class="val">5</span>
-                            <span class="label">Extensively</span>
-                        </button>
+                        <!-- Injected by JS per quiz -->
                     </div>
                 </div>
             </div>
@@ -116,12 +94,16 @@
         <!-- Results Screen -->
         <section id="results-screen" class="screen">
             <div class="content-card results-card">
-                <h2>Summary Profile</h2>
-                <p class="summary-text">Here is your weighted score for each leadership practice.</p>
+                <h2 id="results-title">Summary Profile</h2>
+                <p class="summary-text" id="results-subtitle">Here is your score for each area.</p>
+
+                <div class="score-interpretation" id="score-interpretation" style="display:none;"></div>
 
                 <div class="results-grid" id="results-grid">
-                    <!-- Result Items will be injected here -->
+                    <!-- Result items injected by JS -->
                 </div>
+
+                <div class="references-section" id="references-section"></div>
 
                 <div class="action-buttons">
                     <button id="print-btn" class="btn primary-btn">Print Report</button>
@@ -132,8 +114,7 @@
         </section>
 
         <footer class="app-footer">
-            <p>Created by <a href="https://ismail.jadun.xyz" target="_blank" rel="noopener noreferrer">Ismail Jadun</a>
-            </p>
+            <p>made by <a href="https://ismail.jadun.xyz" target="_blank" rel="noopener noreferrer">Ismail Jadun</a></p>
         </footer>
     </main>
 
@@ -141,41 +122,33 @@
     <div id="info-modal" class="modal-overlay">
         <div class="modal-content">
             <button id="close-modal-btn" class="close-modal">&times;</button>
-            <h3>Rating Scale Guide</h3>
-            <ul class="rating-scale-modal">
-                <li><span class="score-badge">5</span> <span class="rating-text">I display this behavior
-                        <strong>extensively</strong></span></li>
-                <li><span class="score-badge">4</span> <span class="rating-text">I display this behavior
-                        <strong>frequently</strong></span></li>
-                <li><span class="score-badge">3</span> <span class="rating-text">I display this behavior
-                        <strong>occasionally</strong></span></li>
-                <li><span class="score-badge">2</span> <span class="rating-text">I display this behavior
-                        <strong>rarely</strong></span></li>
-                <li><span class="score-badge">1</span> <span class="rating-text">I <strong>do not display</strong> this
-                        behavior</span></li>
+            <h3 id="modal-title">Rating Scale Guide</h3>
+            <ul class="rating-scale-modal" id="modal-scale-list">
+                <!-- Injected by JS per quiz -->
             </ul>
         </div>
     </div>
 
     <!-- Hidden Print Container -->
     <div id="print-container">
-        <h1>LPI Student Self-Assessment Report</h1>
+        <h1 id="print-title">Assessment Report</h1>
         <div id="print-questions-list"></div>
         <div class="print-break"></div>
         <h2>Summary Profile</h2>
         <table id="print-results-table">
             <thead>
                 <tr>
-                    <th>Practice</th>
+                    <th>Category</th>
                     <th>Total Score</th>
                     <th>Weighted Score</th>
                 </tr>
             </thead>
             <tbody id="print-results-body"></tbody>
         </table>
+        <div id="print-references"></div>
     </div>
 
-    <script src="app.js?v=7"></script>
+    <script src="app.js?v=8"></script>
 </body>
 
 </html>
