@@ -37,21 +37,32 @@ body {
     width: 100%;
     max-width: 800px;
     position: relative;
-    z-index: 10;
+    z-index: 25;
 }
 
 .screen {
     display: none;
-    animation: fadeIn 0.5s ease-out;
 }
 
 .screen.active {
     display: block;
+    animation: screenEnter 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+.screen.exiting {
+    display: block;
+    animation: screenExit 0.25s ease-in forwards;
+    pointer-events: none;
+}
+
+@keyframes screenEnter {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes screenExit {
+    from { opacity: 1; transform: translateY(0); }
+    to   { opacity: 0; transform: translateY(-18px); }
 }
 
 .content-card,
@@ -118,8 +129,14 @@ h3.question-text {
 
 .quiz-card:hover {
     border-color: var(--primary-color);
-    transform: translateY(-3px);
+    transform: scale(1.02);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.quiz-card:active {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(106, 17, 203, 0.2);
+    transition-duration: 0.1s;
 }
 
 .quiz-card-title {
@@ -712,7 +729,7 @@ h3.question-text {
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.7);
     background: var(--primary-color);
-    z-index: 20;
+    z-index: 15;
 }
 
 .app-footer a {
