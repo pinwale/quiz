@@ -6,7 +6,7 @@ const QUIZZES = {
     lpi: {
         id: 'lpi',
         title: 'Leadership Practices Inventory',
-        subtitle: 'Student Self-Assessment',
+        subtitle: 'Self-Assessment',
         description: 'Assess your leadership behaviors across 5 key practices.',
         instructions: `Please guide your self-assessment for the following behavior items. Rate each item honestly about
             yourself <strong>as you are now</strong> (vs. how you wish you would be) using the scale provided below:`,
