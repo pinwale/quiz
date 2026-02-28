@@ -299,9 +299,10 @@ function switchScreen(screenName) {
 
     current.classList.remove('active');
     current.classList.add('exiting');
-    setTimeout(() => current.classList.remove('exiting'), 280);
-
-    setTimeout(() => next.classList.add('active'), 150);
+    setTimeout(() => {
+        current.classList.remove('exiting');
+        next.classList.add('active');
+    }, 200);
 }
 
 // ─────────────────────────────────────────────

@@ -51,7 +51,7 @@ body {
 
 .screen.exiting {
     display: block;
-    animation: screenExit 0.25s ease-in forwards;
+    animation: screenExit 0.18s ease-in forwards;
     pointer-events: none;
 }
 
@@ -61,8 +61,8 @@ body {
 }
 
 @keyframes screenExit {
-    from { opacity: 1; transform: translateY(0); }
-    to   { opacity: 0; transform: translateY(-18px); }
+    from { opacity: 1; }
+    to   { opacity: 0; }
 }
 
 .content-card,
