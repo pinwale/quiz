@@ -289,8 +289,19 @@ function goHome() {
 }
 
 function switchScreen(screenName) {
-    Object.values(screens).forEach(s => s.classList.remove('active'));
-    screens[screenName].classList.add('active');
+    const current = Object.values(screens).find(s => s.classList.contains('active'));
+    const next = screens[screenName];
+
+    if (!current || current === next) {
+        next.classList.add('active');
+        return;
+    }
+
+    current.classList.remove('active');
+    current.classList.add('exiting');
+    setTimeout(() => current.classList.remove('exiting'), 280);
+
+    setTimeout(() => next.classList.add('active'), 150);
 }
 
 // ─────────────────────────────────────────────
