@@ -22,15 +22,14 @@ html {
 
 body {
     font-family: var(--font-family);
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    background-attachment: fixed;
+    background: var(--primary-color);
     color: var(--text-color);
     min-height: 100vh;
     min-height: 100dvh;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    padding: 20px 10px;
+    align-items: center;
+    padding: 20px 10px 70px; /* bottom clearance for fixed footer */
     overflow-x: hidden;
 }
 
@@ -51,14 +50,8 @@ body {
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
 .content-card,
@@ -88,7 +81,8 @@ h3.question-text {
     margin-bottom: 40px;
     color: #333;
     line-height: 1.4;
-    min-height: 3.6em;
+    height: 5.4em; /* fixed height = 3 lines — prevents layout shift between questions */
+    overflow-y: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -709,13 +703,15 @@ h3.question-text {
 ───────────────────────────────────────────── */
 
 .app-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     text-align: center;
-    padding: 15px 0 20px;
+    padding: 14px 0 16px;
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.7);
-    margin-top: 20px;
-    width: 100%;
-    position: relative;
+    background: var(--primary-color);
     z-index: 20;
 }
 
@@ -898,13 +894,12 @@ h3.question-text {
 
 @media (max-width: 600px) {
     body {
-        align-items: flex-start;
-        padding: 10px;
+        padding: 12px 10px 70px;
     }
 
     .content-card,
     .question-card {
-        padding: 25px 20px;
+        padding: 25px 18px;
     }
 
     h1 {
@@ -918,18 +913,20 @@ h3.question-text {
     /* LPI numbered options: stack vertically on mobile */
     .options-grid:not(.text-only-grid) {
         grid-template-columns: 1fr;
+        gap: 10px;
     }
 
     .options-grid:not(.text-only-grid) .option-btn {
         flex-direction: row;
         justify-content: flex-start;
-        padding: 15px;
+        padding: 14px 15px;
     }
 
     .options-grid:not(.text-only-grid) .option-btn .val {
         margin-bottom: 0;
         margin-right: 15px;
-        width: 30px;
+        width: 28px;
+        font-size: 1.2rem;
     }
 
     .options-grid:not(.text-only-grid) .option-btn .label {
@@ -940,15 +937,13 @@ h3.question-text {
     /* EI text-only: full width on mobile */
     .text-only-grid {
         max-width: 100%;
+        gap: 10px;
     }
 
     h3.question-text {
-        font-size: 1.4rem;
-        height: 140px;
-        margin-bottom: 25px;
-        display: block;
-        padding-top: 10px;
-        overflow-y: auto;
+        font-size: 1.35rem;
+        height: 4.8em; /* ~3 lines at mobile font size */
+        margin-bottom: 20px;
     }
 
     .rating-scale li {
